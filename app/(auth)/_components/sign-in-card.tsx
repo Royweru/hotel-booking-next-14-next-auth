@@ -14,7 +14,7 @@ export const SignInCard = (
       SignInCard
       </h1>
       <div
-       className=' w-full flex justify-center items-center'
+       className=' w-full flex justify-center items-center cursor-pointer'
        onClick={()=>setState("signUp")}
        >
          Sign Up  

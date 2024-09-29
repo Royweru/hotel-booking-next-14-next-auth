@@ -1,16 +1,15 @@
-
-
-import React, { useState } from 'react'
-import { AuthTypes } from '../types'
-import { SignInCard } from '../_components/sign-in-card'
+"use client"
 import { SignUpCard } from '../_components/sign-up-card'
-
-export const AuthScreen = () => {
-
+import { SignInCard } from '../_components/sign-in-card'
+import { AuthTypes } from '../types'
+import { useState } from 'react'
+const AuthPage = () => {
   const [state,setState] = useState<AuthTypes>("signIn")
   return (
     <>
-     {state ==="signIn"? <SignInCard setState={setState}/>:<SignUpCard  setState={setState}/>}
-    </>
+    {state ==="signIn"? <SignInCard setState={setState}/>:<SignUpCard  setState={setState}/>}
+   </>
   )
 }
+
+export default AuthPage
