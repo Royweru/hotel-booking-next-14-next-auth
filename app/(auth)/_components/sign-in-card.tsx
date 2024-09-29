@@ -1,24 +1,150 @@
-import React from 'react'
-import { AuthTypes } from '../types'
+"use client";
+import React, { useState, useTransition } from "react";
+import * as z from "zod";
 
-export const SignInCard = (
-    {
-       setState
-    }:{
-        setState:(state:AuthTypes) =>void
-    }
-) => {
+import { AuthTypes } from "../types";
+// import { FaGoogle } from "react-icons/fa";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Login } from "@/actions/login";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { LoginSchema } from "@/schemas";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Error } from "./Error";
+import { Success } from "./Success";
+import { useRouter } from "next/navigation";
+
+export const SignInCard = ({
+  setState,
+}: {
+  setState: (state: AuthTypes) => void;
+}) => {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [isErr, setIsErr] = useState<string | undefined>("");
+  // const [isSuccess, setIsSuccess] = useState<string | undefined | null>("");
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    setIsErr("");
+
+    startTransition(() => {
+      Login(values).then((data) => {
+        setIsErr(data?.error);
+
+        form.reset();
+        router.refresh();
+      });
+    });
+  };
   return (
-    <div className=' p-6 bg-white text-black'>
-      <h1 className=' text-5xl font-bold'>
-      SignInCard
-      </h1>
-      <div
-       className=' w-full flex justify-center items-center cursor-pointer'
-       onClick={()=>setState("signUp")}
-       >
-         Sign Up  
-      </div>
-      </div>
-  )
-}
+    <Card className="  w-full sm:w-[350px] md:w-[450px] ">
+      <CardContent>
+        <CardHeader>
+          <CardTitle className=" text-lime-600 font-semibold tracking-wide lg:text-2xl text-xl ">
+            Hey user ! welcome back
+          </CardTitle>
+          <CardDescription>Sign in to Sarova suites</CardDescription>
+        </CardHeader>
+        <div className=" w-full px-4">
+          <Form {...form}>
+            <form
+              action=""
+              onSubmit={form.handleSubmit(onSubmit)}
+              className=" space-y-2 w-full"
+            >
+              <FormField
+                name="email"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter your email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Reee@gmail.com"
+                        type="text"
+                        disabled={isPending}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="password"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enter your password</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="********"
+                        type="password"
+                        disabled={isPending}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Success />
+              <Error message={isErr} />
+              {/* <div className=" w-full">
+                <Button
+                  className=" w-full flex gap-x-2 text-sm font-semibold text-brand-black "
+                  variant="ghost"
+                  size="lg"
+                >
+                  <FaGoogle className=" size-5 text-blue-400" />
+                  <span>Continue with google</span>
+                </Button>
+              </div> */}
+              <div className="items-center flex gap-x-1 justify-center w-full text-sm font-light">
+                Don&apos;t have an account?
+                <span
+                  className=" hover:underline text-purple-300 font-extralight cursor-pointer"
+                  onClick={() => setState("signUp")}
+                >
+                  Sign Up
+                </span>
+              </div>
+              <div className=" w-full flex px-4 justify-end items-center">
+                <Button
+                  className=" font-semibold text-black font-mono"
+                  variant={"secondary"}
+                  size={"lg"}
+                  type="submit"
+                  disabled={isPending}
+                >
+                  Login
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
