@@ -16,7 +16,7 @@ datasource db {
   directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
-enum UserRole{
+enum UserRole {
   ADMIN
   USER
 }
@@ -27,8 +27,9 @@ model User {
   email          String?   @unique
   hashedPassword String?
   emailVerified  DateTime? @map("email_verified")
-  role          UserRole @default(USER)
+  role           UserRole  @default(USER)
   image          String?
+  reservations Reservation[]
 
   accounts Account[]
 
@@ -53,4 +54,47 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
+}
+
+model Category {
+  id   String @id @default(cuid())
+  name String
+  description  String?
+
+  rooms     Room[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model Room {
+  id         String   @id @default(cuid())
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id],onDelete: Cascade)
+
+  name       String
+  details  String?
+  rating       String?
+  price        Decimal
+  imageUrl     String
+  reservations Reservation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+
+model Reservation{
+    id         String   @id @default(cuid())
+     
+     roomId String
+     room Room @relation(fields: [roomId],references: [id],onDelete: Cascade)
+
+     userId String
+     user User @relation(fields: [userId],references: [id],onDelete:Cascade)
+
+     startDate  DateTime
+     endDate   DateTime
+     totalPrice Int
+
+     createdAt DateTime @default(now())
 }

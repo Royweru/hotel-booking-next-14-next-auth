@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+  --font-montserrat: "Montserrat", sans-serif;
+}
 body {
   height: 100%;
-  @apply font-serif bg-white text-base
+  @apply font-montserrat bg-white text-base
 }
 
 @layer utilities {
@@ -20,3 +22,17 @@ body {
     --radius: 0.5rem;
   }
 }
+
+/* .sticky-nav {
+  animation: sticky-nav 300ms;
+}
+ 
+@keyframes sticky-nav {
+ 0% {
+     transform: translateY(-6em)
+ }
+
+ 100% {
+     transform: translateY(0)
+ }
+} */
