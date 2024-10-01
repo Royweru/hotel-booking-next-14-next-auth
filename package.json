@@ -31,6 +31,7 @@
     "ra-data-simple-rest": "^5.2.1",
     "react": "^18",
     "react-admin": "^5.2.1",
+    "react-date-range": "^2.0.1",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "react-icons": "^5.3.0",
