@@ -13,6 +13,7 @@ import {
 } from "../ui/dropdown-menu";
 import { User } from "@prisma/client";
 import { logout } from "@/actions/logout";
+import { usePathname } from "next/navigation";
 
 export const MainNav = ({
   user,
@@ -21,15 +22,8 @@ export const MainNav = ({
   user?: User | null;
 }) => {
   //   const navRef = useRef();
-
-  const navigation = [
-    { title: "Customers", path: "javascript:void(0)" },
-    { title: "Guides", path: "javascript:void(0)" },
-    { title: "Partners", path: "javascript:void(0)" },
-    { title: "Teams", path: "javascript:void(0)" },
-    { title: "Blog", path: "javascript:void(0)" },
-  ];
-
+const pathName = usePathname()
+ const hidden = pathName === "/admin"
   const userNavigation = [
     { title: "Reach out", path: "javascript:void(0)" },
     { title: "About", path: "javascript:void(0)" },
@@ -40,7 +34,9 @@ export const MainNav = ({
     logout()
   }
   return (
-    <nav className="bg-white w-full top-0 z-20 border-b-2 border-black">
+    <nav className={`bg-white w-full top-0 z-20 border-b-2 border-black ${hidden && 
+      'hidden'
+    }`}>
       <div className=" w-full flex justify-between px-8 md:px-12 lg:px-16 py-2 items-center">
         <a href="/" className=" hover:scale-105 cursor-pointer">
           <img src="/logo.png" width={120} height={50} alt="Float UI logo" />

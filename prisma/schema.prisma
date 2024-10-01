@@ -60,7 +60,8 @@ model Category {
   id   String @id @default(cuid())
   name String
   description  String?
-
+  beds Int
+  
   rooms     Room[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
@@ -73,7 +74,7 @@ model Room {
 
   name       String
   details  String?
-  rating       String?
+  rating       Decimal?
   price        Decimal
   imageUrl     String
   reservations Reservation[]

@@ -1,11 +1,11 @@
-import { auth } from "@/auth";
-import App from "next/app";
+import { App } from "./app";
+import { serverUser } from "@/lib/serveruser";
+import { redirect } from "next/navigation";
 
 const AdminPage = async () => {
-  const session = await auth();
+  const user = await serverUser()
+  if(!user) return redirect ("/")
 
-  if (!session?.user.id) return null;
-  
   return <App />;
 };
 
