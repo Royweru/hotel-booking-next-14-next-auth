@@ -1,11 +1,12 @@
+import { Categories } from "@/components/categories";
+import { Hero } from "@/components/hero";
 
 
 export default function Home() {
   return (
-    <div className="  w-full  min-h-screen text-6xl font-serif ">
-       <h2 className=" font-semibold text-green-600">
-         Katuumula Hotel Booking
-       </h2>
-    </div>
+   <>
+    <Hero/>
+    <Categories />
+   </>
   );
 }

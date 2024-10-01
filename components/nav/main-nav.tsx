@@ -1,8 +1,8 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Button } from "../button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -10,10 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../dropdown-menu";
+} from "../ui/dropdown-menu";
 import { User } from "@prisma/client";
 import { logout } from "@/actions/logout";
-import { signOut } from "next-auth/react";
+
 export const MainNav = ({
   user,
 }: {
@@ -72,10 +72,12 @@ export const MainNav = ({
                   <DropdownMenuSeparator className=" bg-white text-white my-1" />
                   <DropdownMenuItem className=" font-semibold text-md
                  text-center text-lime-700 ">
-                      Reservations
+                  <Link href={"/reservations"}>
+                  Reservations
                        <span className="font-bold ml-2">
                         0
                        </span>
+                  </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className=" font-semibold text-rose-400 ">
                     <Button
