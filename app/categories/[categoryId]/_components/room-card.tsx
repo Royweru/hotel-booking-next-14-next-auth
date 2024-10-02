@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Room } from '@prisma/client'
+import { Room } from '@/types'
 import Image from 'next/image'
 
 export const RoomCard = ({
@@ -30,16 +30,28 @@ export const RoomCard = ({
               <p className=' text-sm font-semibold tracking-tight leading-relaxed  text-black/85'>
                {room.details}
               </p>
-              <Separator  className=' bg-black my-1'/>
               <div className=' w-full relative flex justify-between items-center'>
                 <p className=' text-xs font-bold text-emerald-600 font-mono tracking-wide capitalize'>
                    {room.name}
                 </p>
-                <Button variant={"reserve"} size={'lg'} 
-                 className=' font-semibold'
-                >
-                   Reserve now
-                </Button>
+                <button className=' px-4 py-1 bg-emerald-500 text-white font-bold text-sm
+              flex items-center justify-center gap-x-2 tracking-wide rounded-lg hover:bg-emerald-500'>
+                 <span className=' text-xs font-mono font-light text-neutral-100 mr-1
+                  '> 
+                  Per night
+                 </span>
+                 <span className=' text-xs font-semibold'>
+                  Kes
+                 </span>
+                   {room.price.toLocaleString('en')}
+                 
+                </button>
+              </div>  
+              <Separator  className=' bg-black my-1'/>
+              <div className=' w-full flex items-center justify-center px-8 mb-1'>
+                  <Button variant={"reserve"} className=' w-full'>
+                    Rerserve now
+                  </Button>
               </div>
             </div>
             

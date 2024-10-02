@@ -10,7 +10,21 @@ export const GetCategory =async (categoryId:string) => {
                 rooms:true
             },
         })
-      return res
+
+        const safeRes = res?.rooms.map((room)=>{
+            const modifiedRoom =  room.price.toNumber()
+            const rating = room.rating?.toFixed()
+            return {
+                ...room,
+                price:modifiedRoom,
+                rating
+            }
+        }
+    )
+      return {
+        ...res,
+        rooms:safeRes
+      }
      } catch (error) {
         console.error(error)
         return null
