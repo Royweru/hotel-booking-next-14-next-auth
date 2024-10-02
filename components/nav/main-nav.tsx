@@ -23,7 +23,7 @@ export const MainNav = ({
 }) => {
   //   const navRef = useRef();
 const pathName = usePathname()
- const hidden = pathName === "/admin"
+ const hidden = pathName === "/admin" || pathName === "/auth"
   const userNavigation = [
     { title: "Reach out", path: "javascript:void(0)" },
     { title: "About", path: "javascript:void(0)" },
@@ -75,12 +75,14 @@ const pathName = usePathname()
                        </span>
                   </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className=" font-semibold text-rose-400 ">
+                  <DropdownMenuItem>
                     <Button
+                      asChild
                       variant={"ghost"}
                       type="submit"
-                      className=" w-full relative font-semibold"
+                      className=" w-full relative font-semibold text-rose-400"
                       onClick={onLogout}
+                      
                     >
                       Logout
                     </Button>
