@@ -16,7 +16,8 @@ export const CategoriesGrid = ({ categories }: CategoryGridProps) => {
       {categories?.map((category) => (
         <div
           key={category.id}
-          className={`md:h-[350px] h-[300px] col-span-1 shadow-large bg-white relative cursor-pointer hover:scale-105 active:opacity-85`}
+          className={`md:h-[350px] h-[300px] col-span-1 shadow-large bg-white relative cursor-pointer
+             hover:scale-105 active:opacity-85`}
           style={{
             backgroundImage: `url(${category.rooms[0].imageUrl})`,
             backgroundSize: "cover",

@@ -21,13 +21,23 @@ export async function GET() {
   }
 }
 export async function POST(req: Request) {
-  const user = await serverUser();
-  if (!user) return new NextResponse("Unauthorized", { status: 401 });
-  const body = await req.json();
-
   try {
+    const user = await serverUser();
+    if (!user) return new NextResponse("Unauthorized", { status: 401 });
+    const {
+      endDate,
+      startDate,
+      roomId,
+      totalPrice
+    } = await req.json();
     const res = await prisma.reservation.create({
-      data: { ...body },
+      data: { 
+        userId:user.id,
+        endDate,
+        startDate,
+        totalPrice,
+        roomId
+       },
     });
     return NextResponse.json(res);
   } catch (error) {

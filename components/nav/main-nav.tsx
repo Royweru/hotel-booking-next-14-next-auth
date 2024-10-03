@@ -11,15 +11,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { User } from "@prisma/client";
+import { Reservation, User } from "@prisma/client";
 import { logout } from "@/actions/logout";
 import { usePathname } from "next/navigation";
 
 export const MainNav = ({
-  user,
+  user, reservations
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user?: User | null;
+  reservations:Reservation[]|null
 }) => {
   //   const navRef = useRef();
 const pathName = usePathname()
@@ -66,18 +67,18 @@ const pathName = usePathname()
                     </DropdownMenuItem>
                   ))}
                   <DropdownMenuSeparator className=" bg-white text-white my-1" />
-                  <DropdownMenuItem className=" font-semibold text-md
-                 text-center text-lime-700 ">
+                  <DropdownMenuItem className=" font-semibold text-sm
+                 text-center text-lime-700 w-full flex justify-between ">
                   <Link href={"/reservations"}>
                   Reservations
-                       <span className="font-bold ml-2">
-                        0
+                       <span className="font-bold ml-2 text-white">
+                        {reservations?.length}
                        </span>
                   </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Button
-                      asChild
+                     
                       variant={"ghost"}
                       type="submit"
                       className=" w-full relative font-semibold text-rose-400"

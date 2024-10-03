@@ -9,6 +9,7 @@ const AuthLayout = ({
     <div className=' w-full min-h-screen flex items-center justify-center
       bg-gradient-to-bl from-sky-200 via-blue-400 to-sky-900
     '>
+      
         {children}
     </div>
   )

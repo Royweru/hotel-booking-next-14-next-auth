@@ -1,6 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { useReserveModal } from '@/hooks/use-reserve-modal'
 import { Room } from '@/types'
 import Image from 'next/image'
 
@@ -9,6 +10,7 @@ export const RoomCard = ({
 }:{
     room:Room
 }) => {
+  const {onOpen} = useReserveModal()
   return (
     <div className=' col-span-1 bg-white
     shadow-medium min-h-[300px] rounded-md 
@@ -31,7 +33,7 @@ export const RoomCard = ({
                {room.details}
               </p>
               <div className=' w-full relative flex justify-between items-center'>
-                <p className=' text-xs font-bold text-emerald-600 font-mono tracking-wide capitalize'>
+                <p className=' text-xs font-bold text-neutral-darkest font-mono tracking-wide capitalize'>
                    {room.name}
                 </p>
                 <button className=' px-4 py-1 bg-emerald-500 text-white font-bold text-sm
@@ -49,7 +51,11 @@ export const RoomCard = ({
               </div>  
               <Separator  className=' bg-black my-1'/>
               <div className=' w-full flex items-center justify-center px-8 mb-1'>
-                  <Button variant={"reserve"} className=' w-full'>
+                  <Button 
+                  variant={"reserve"} 
+                  className=' w-full'
+                  onClick={()=>onOpen(room)}
+                  >
                     Rerserve now
                   </Button>
               </div>

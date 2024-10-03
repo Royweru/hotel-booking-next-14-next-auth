@@ -7,7 +7,11 @@ export const GetCategory =async (categoryId:string) => {
                 id:categoryId
             },
             include:{
-                rooms:true
+                rooms:{
+                    include:{
+                        reservations:true
+                    }
+                }
             },
         })
 
