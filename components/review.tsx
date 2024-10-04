@@ -13,9 +13,11 @@ export const Reviews = ({
   user:User|null
 }) => {
     const  [message,setMessage] = useState("")
+    const [isLoading,setIsLoading] = useState(false)
     const onSubmit =async ()=>{
       try {
         if(!user) return redirect("/auth")
+          setIsLoading(true)
          await axios.post('/api/reviews',{
           message
         })
@@ -24,6 +26,8 @@ export const Reviews = ({
       } catch (error) {
         console.error(error)
         return toast.error("Somethig went wrong while subniting your message")
+      }finally{
+        setIsLoading(false)
       }
     }
   return (
@@ -37,10 +41,15 @@ export const Reviews = ({
          <Textarea 
          className=' lg:max-w-md  w-full min-h-[90px]'
          value={message}
+         disabled={isLoading}
          onChange={(e)=>setMessage(e.target.value)}
          />
          <div className=' w-full items-center justify-center flex'>
-           <Button className=' font-semibold text-neutral-300' onClick={onSubmit}>
+           <Button 
+           className=' font-semibold text-neutral-300'
+            onClick={onSubmit}
+            disabled={isLoading}
+            >
                  Submit
            </Button>
          </div>

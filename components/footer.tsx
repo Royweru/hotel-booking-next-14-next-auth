@@ -22,7 +22,7 @@ export const Footer= () => {
         <footer className="pt-10 bg-black/80 mt-3 border-t-2 rounded-t-md border-white/70">
             <div className="max-w-screen-xl mx-auto px-4  text-brand-white md:px-8">
                 <div className="space-y-6 sm:max-w-md sm:mx-auto sm:text-center">
-                    <img src="/logo.png" className="w-32 sm:mx-auto" />
+                    <img src="/logo.png" alt ="" className="w-32 sm:mx-auto" />
                     <p>
                         Experience the best hotel booking services in the world
                     </p>

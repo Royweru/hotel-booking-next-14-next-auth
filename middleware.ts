@@ -4,27 +4,31 @@ import authConfig from "./auth.config";
 import { apiAuthPrefix,authRoute,DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes";
 const {auth } = NextAuth(authConfig)
 
-export default auth((req) => {
-  const {nextUrl} = req
-  const isLoggedIn = !!req.auth
-  
-  const isApiRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-  const isPublicRoutes = publicRoutes.includes(nextUrl.pathname)
-  const isAuthRoute = nextUrl.pathname.startsWith(authRoute)
-  
-  if(isApiRoute) return null
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default auth((req): void | Response | Promise<void | Response> => {
+  const { nextUrl } = req;
+  const isLoggedIn = !!req.auth;
 
-  if(isAuthRoute){
-     if(isLoggedIn)
-         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT,nextUrl))
-    return null
+  const isApiRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isPublicRoutes = publicRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = nextUrl.pathname.startsWith(authRoute);
+
+  if (isApiRoute) return; // return undefined instead of null
+
+  if (isAuthRoute) {
+    if (isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+    }
+    return; // return undefined instead of null
   }
 
-  if(!isLoggedIn && !isPublicRoutes){
-    return Response.redirect(new URL("/auth",nextUrl))
+  if (!isLoggedIn && !isPublicRoutes) {
+    return Response.redirect(new URL("/auth", nextUrl));
   }
-  return null
-})
+  
+  return; // return undefined instead of null
+});
+
 
 export const config={
     matcher: [
