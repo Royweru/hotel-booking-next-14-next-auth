@@ -63,7 +63,7 @@ export const SignUpCard = ({
       <CardContent>
         <CardHeader>
           <CardTitle className=" text-lime-600 font-semibold tracking-wide lg:text-2xl text-xl ">
-            Welcome to Sarova Suites
+            Welcome to Katuumula Bookings
           </CardTitle>
           <CardDescription>
             Sign up to be part of our community{" "}

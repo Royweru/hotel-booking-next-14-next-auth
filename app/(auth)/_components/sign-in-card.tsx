@@ -65,7 +65,7 @@ export const SignInCard = ({
           <CardTitle className=" text-lime-600 font-semibold tracking-wide lg:text-2xl text-xl ">
             Hey user ! welcome back
           </CardTitle>
-          <CardDescription>Sign in to Sarova suites</CardDescription>
+          <CardDescription>Sign in to Katuumula Bookings</CardDescription>
         </CardHeader>
         <div className=" w-full px-4">
           <Form {...form}>
