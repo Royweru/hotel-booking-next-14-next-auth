@@ -2,19 +2,23 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-import { ReservationRoom} from "@/types";
+import { ReservationRoom } from "@/types";
 import { Reservation } from "@prisma/client";
 import Image from "next/image";
 
 export const ReservationCard = ({
   room,
   reservation,
+  onDelete
 }: {
-  room: ReservationRoom
+  room: ReservationRoom;
   reservation: Reservation;
+  onDelete :(reservationId:string)=>void,
 }) => {
+
   return (
-    <div
+    <>
+      <div
       className=" col-span-1 bg-white
     shadow-medium min-h-[300px] rounded-md 
      active:opacity-95 group overflow-hidden"
@@ -31,9 +35,23 @@ export const ReservationCard = ({
         </div>
 
         <div className=" lg:px-2 px-3 flex flex-col gap-y-1 mt-2 relative pb-0.5">
-          <p className=" text-sm font-semibold tracking-tight leading-relaxed  text-black/85">
-            {room.details}
-          </p>
+          <div className=" w-full px-1 flex justify-start gap-x-2 items-center text-sm">
+            <p className=" font-semibold text-green-400 ">
+              {new Date(reservation.startDate).toLocaleDateString("en-US", {
+                weekday: "long", // Optional: 'short', 'narrow' for shorter day names
+                year: "numeric",
+                day: "numeric",
+              })}
+            </p>
+            <span className=" font-light text-sm">to</span>
+            <p className=" font-semibold text-green-400">
+              {new Date(reservation.endDate).toLocaleDateString("en-US", {
+                weekday: "long", // Optional: 'short', 'narrow' for shorter day names
+                year: "numeric",
+                day: "numeric",
+              })}
+            </p>
+          </div>
           <div className=" w-full relative flex justify-between items-center">
             <p className=" text-xs font-bold text-neutral-darkest font-mono tracking-wide capitalize">
               {room.name}
@@ -54,10 +72,9 @@ export const ReservationCard = ({
           </div>
           <Separator className=" bg-black my-1" />
           <div className=" w-full flex items-center justify-center px-8 mb-1">
-            <Button
-              variant={"reserve"}
-              className=" w-full"
-             
+            <Button variant={"reserve"} 
+            className=" w-full"
+            onClick={()=>onDelete(reservation.id)}
             >
               Delete
             </Button>
@@ -65,5 +82,7 @@ export const ReservationCard = ({
         </div>
       </div>
     </div>
+    </>
+   
   );
 };

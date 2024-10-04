@@ -13,7 +13,7 @@ export async function GET(
   const user = await serverUser()
  if(!user) return new NextResponse("Unauthorized", { status: 401 });
   try {
-    const res = await prisma.category.findUnique({
+    const res = await prisma.reservation.findUnique({
       where: {
         id: params.reservationId,
       },
@@ -37,7 +37,7 @@ export async function PUT(
 
   const body = await req.json();
   try {
-    const res = await prisma.category.update({
+    const res = await prisma.reservation.update({
       where: {
         id: params.reservationId,
       },
@@ -64,7 +64,7 @@ export async function DELETE(
     const user = await serverUser()
  if(!user) return new NextResponse("Unauthorized", { status: 401 });
  
-    const res = await prisma.category.delete({
+    const res = await prisma.reservation.delete({
       where: {
         id: params.reservationId,
       },

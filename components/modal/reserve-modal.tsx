@@ -69,6 +69,7 @@ export const ReserveModal = () => {
       toast.error(`Congratulations you have booked a room successfully !`, {
         style: { backgroundColor: "green" },
       });
+      onClose()
     } catch (error) {
       console.log(error);
       toast.error("Oopsy something went wrong!", {
