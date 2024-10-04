@@ -59,7 +59,7 @@ export const SignUpCard = ({
     });
   };
   return (
-    <Card className="  w-full sm:w-[350px] md:w-[450px] ">
+    <Card className="  w-full sm:mx-0 mx-3 sm:w-[350px] md:w-[450px] ">
       <CardContent>
         <CardHeader>
           <CardTitle className=" text-lime-600 font-semibold tracking-wide lg:text-2xl text-xl ">
