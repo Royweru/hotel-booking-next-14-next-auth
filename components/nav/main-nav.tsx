@@ -24,7 +24,7 @@ export const MainNav = ({
 }) => {
   //   const navRef = useRef();
 const pathName = usePathname()
- const hidden = pathName === "/admin" || pathName === "/auth"
+const hidden = pathName === "/admin" || pathName === "/auth";
   const userNavigation = [
     { title: "Reach out", path: "javascript:void(0)" },
     { title: "About", path: "javascript:void(0)" },
