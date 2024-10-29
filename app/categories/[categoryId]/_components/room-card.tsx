@@ -56,7 +56,7 @@ export const RoomCard = ({
                   className=' w-full'
                   onClick={()=>onOpen(room)}
                   >
-                    Rerserve now
+                    Reserve now
                   </Button>
               </div>
             </div>

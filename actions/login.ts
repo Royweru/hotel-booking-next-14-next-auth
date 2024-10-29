@@ -5,6 +5,7 @@ import { signIn } from "@/auth";
 import * as z from "zod";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
+
 export const Login = async (vals: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(vals);
 
@@ -29,8 +30,5 @@ export const Login = async (vals: z.infer<typeof LoginSchema>) => {
           return { error: "Something went wrong" };
       }
     }
-   
   }
-
- 
 };

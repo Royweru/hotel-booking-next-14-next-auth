@@ -41,6 +41,7 @@ export const SignUpCard = ({
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
+      name:"",
       email: "",
       password: "",
     },
@@ -152,7 +153,8 @@ export const SignUpCard = ({
               </div>
               <div className=" w-full flex px-4 justify-end items-center">
                 <Button
-                  className=" font-semibold text-white text-sm font-mono"
+                  className=" font-semibold 
+                  text-white text-sm font-mono"
                  type="submit"
                   disabled={isPending}
                 >
