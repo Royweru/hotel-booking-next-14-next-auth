@@ -26,7 +26,7 @@ export const ReserveModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(data?.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
-
+  const [paymentDialog,setPaymentDialog] = useState(false)
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInCalendarDays(
@@ -70,6 +70,7 @@ export const ReserveModal = () => {
         style: { backgroundColor: "green" },
       });
       onClose()
+      setPaymentDialog(true)
     } catch (error) {
       console.log(error);
       toast.error("Oopsy something went wrong!", {
@@ -79,9 +80,40 @@ export const ReserveModal = () => {
       setIsLoading(false);
     }
   };
+ const handleCheckout =async ()=>{
+  try {
 
+    const response = await axios.post('/api/purchaseProduct',{
+     variantId:'579687'
+    })
+    
+    window.open(response.data,"_blank")
+ } catch (error) {
+    console.error(error)
+    toast.error("Something went wrong while proceeding to check out")
+ }
+ }
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+      <Dialog open={paymentDialog} onOpenChange={setPaymentDialog}>
+         <DialogContent className=" bg-neutral-50">
+            <DialogHeader className=" font-bold text-xl  text-emerald-600">
+              Pay 50% to reserve your room
+            </DialogHeader>
+            <DialogDescription className=" text-black/95 font-semibold">
+              For you to have your room reserved you need to place at least a 50% deposit, otherwise another client can take your space
+            </DialogDescription>
+            <div className=" w-full px-2.5 py-4">
+            <Button 
+            variant={"outline"}
+            className=" text-neutral-black font-semibold"
+            onClick={handleCheckout}
+            >
+                 Proceed to checkout
+            </Button>
+            </div>
+         </DialogContent>
+      </Dialog>
       <DialogContent className=" bg-slate-100">
         <DialogHeader>
           <DialogTitle className=" text-xl font-bold text-emerald-600">

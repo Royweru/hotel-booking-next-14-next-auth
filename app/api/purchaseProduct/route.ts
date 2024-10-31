@@ -9,13 +9,13 @@ export async function POST(
   req: Request
 ) {
   try {
-    const reqData = await req.json();
- 
+    const body = await req.json();
+ const {variantId}  =body
 const user = await serverUser()
     if(!user) redirect("/sign-in")
     
-    if (!reqData.variantId)
-      return NextResponse.json("Product id is required", { status: 400 });
+    if (!variantId)
+      return NextResponse.json("Variant id is required", { status: 400 });
 
     const res = await lemonSqueezyApiInstance.post("/checkouts", {
       data: {
@@ -31,13 +31,13 @@ const user = await serverUser()
           store: {
             data: {
               type: "stores",
-              id: process.env.LEMON_SQUEEZY_STORE_ID.toString(),
+              id: process.env.LEMON_SQUEEZY_STORE_ID as string,
             },
           },
           variant: {
             data: {
               type: "variants",
-              id: reqData.productId.toString(),
+              id: variantId.toString(),
             },
           },
         },
