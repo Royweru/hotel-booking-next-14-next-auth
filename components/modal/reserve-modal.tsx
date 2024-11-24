@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useMemo, useState, useEffect } from "react";
 import eachDayOfInterval from "date-fns/eachDayOfInterval";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
@@ -14,6 +16,7 @@ import { useReserveModal } from "@/hooks/use-reserve-modal";
 import { Range } from "react-date-range";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -27,6 +30,7 @@ export const ReserveModal = () => {
   const [totalPrice, setTotalPrice] = useState(data?.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [paymentDialog,setPaymentDialog] = useState(false)
+  const router = useRouter()
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInCalendarDays(
@@ -70,7 +74,7 @@ export const ReserveModal = () => {
         style: { backgroundColor: "green" },
       });
       onClose()
-      setPaymentDialog(true)
+      router.push('/checkout')
     } catch (error) {
       console.log(error);
       toast.error("Oopsy something went wrong!", {
